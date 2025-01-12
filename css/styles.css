@@ -122,6 +122,7 @@ header p {
   transform: translateY(-10px);
   background-color: #ffd900a8;
   color: #444;
+  cursor: pointer;
 }
 
 .product-card img {
@@ -255,3 +256,9 @@ header p {
 }
 
 
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #F2E8A2;
+}
