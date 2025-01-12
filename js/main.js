@@ -20,7 +20,7 @@ const printProducts = (products) => {
     str += '<img src="' + product['imgUrl'] + '" alt="Sapphire Ring">';
     str += '<div class="product-info">';
     str += '<h3>' + product['productName'] + '</h3>';
-    str += '<p>' + product['productPrice'] + '</p>';
+    str += '<p>' + product['productPrice'] + "$" + '</p>';
     str += '</div>';
     str += '</div>';
   }
