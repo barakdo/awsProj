@@ -2,6 +2,7 @@ const getProducts = async () => {
   try {
     const response = await fetch('https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/products');
     const data = await response.json();
+    loader.style.display = "none"; 
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -55,3 +56,7 @@ const colorHandle = () => {
     });
   
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("loader");
+});

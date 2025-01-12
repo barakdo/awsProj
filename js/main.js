@@ -1,7 +1,9 @@
 const getProducts = async () => {
   try {
+
     const response = await fetch('https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/products');
     const data = await response.json();
+    finishFetching();
     return data;
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -32,4 +34,13 @@ const printProducts = (products) => {
       window.location.replace('/html/product.html');
     });
   }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.getElementById("loader");
+});
+
+const finishFetching = () =>{
+  const loader = document.getElementById("loader");
+  loader.style.display = "none"; 
 }
