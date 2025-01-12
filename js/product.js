@@ -59,4 +59,6 @@ const colorHandle = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.getElementById("loader");
+  const baseUrl = "../index.html";
+  history.replaceState(null, "", baseUrl);
 });
