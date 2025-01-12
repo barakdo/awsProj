@@ -1,0 +1,253 @@
+/* General reset and body styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #1a1a1a;
+  color: white;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #FFD700, #FF1493);
+  /* Golden and pink gradient */
+  color: white;
+  font-size: 2.5em;
+}
+
+header p {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+/* 3D ring section with more content */
+.ring-section {
+  height: 600px;
+  text-align: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.ring-section > div {
+  width: 50%;
+}
+
+.ring-content{
+  padding-left: 14%;
+}
+
+
+.ring-content h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #FFD700;
+  /* Gold color for the title */
+}
+
+.ring-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.shop-now-btn {
+  padding: 10px 20px;
+  background-color: #FF1493;
+  /* Pink button */
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: #FFD700;
+  /* Gold hover effect */
+}
+
+/* Ring container for the 3D effect */
+.ring-container {
+  width: 80%;
+  height: 350px;
+  background-color: transparent;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+}
+
+
+
+/* Product section */
+.product-section {
+  padding: 50px 20px;
+  background-color: #333;
+  text-align: center;
+}
+
+.product-section h2 {
+  font-size: 2em;
+  color: #F2E8A2;
+  margin-bottom: 30px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+.product-card {
+  background-color: #444;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 120px;
+  /* Adjust width to accommodate smaller images */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+}
+
+.product-card img {
+  width: 100px;
+  /* Set the width of images to 100px */
+  height: 100px;
+  /* Adjust height for a square image */
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.product-info {
+  padding: 15px;
+  color: #F2E8A2;
+}
+
+.product-info h3 {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.product-info p {
+  font-size: 1em;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* 3D ring section with fancy light rays */
+.ring-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+
+#ring{
+  z-index: 1;
+}
+
+
+
+/* Ring Section with glowing light effect */
+.ring-section {
+  height: 600px;
+  text-align: center;
+  color: white;
+  display: flex;
+  justify-content: flex-start; /* Align content to the left */
+  align-items: center; /* Align vertically in the center */
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.8));
+}
+
+/* Glowing light effect with unfocused appearance */
+.ring-section::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%; /* Larger size to spread out the light */
+  height: 1000px; /* Larger size to spread out the light */
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: 0 0 200px 40px rgba(255, 165, 0, 0.8), 0 0 250px 60px rgba(255, 215, 0, 0.5);
+  animation: glowing 4s infinite ease-in-out;
+  opacity: 0.6;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Container for the ring and content */
+.ring-section > div {
+  width: 50%;
+  position: relative;
+  z-index: 1; /* Keep content above the glowing effect */
+}
+
+/* Content styling */
+.ring-content h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #FFD700; /* Yellowish gold color */
+}
+
+.ring-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.shop-now-btn {
+  padding: 10px 20px;
+  background-color: #FF8C00; /* Orange button color */
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: #FFD700; /* Yellowish gold on hover */
+}
+
+/* Glowing animation for light effect */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 150px 40px rgba(255, 165, 0, 0.6), 0 0 200px 50px rgba(255, 215, 0, 0.4);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    box-shadow: 0 0 250px 80px #FFD700, 0 0 300px 100px #FFD700;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 150px 40px rgba(255, 165, 0, 0.6), 0 0 200px 50px rgba(255, 215, 0, 0.4);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+
