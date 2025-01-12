@@ -113,11 +113,15 @@ header p {
   width: 120px;
   /* Adjust width to accommodate smaller images */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease;
+  color: #F2E8A2;
+  transition: transform 0.3s ease, background-color 1s ease, color 0.1s;
+  
 }
 
 .product-card:hover {
   transform: translateY(-10px);
+  background-color: #ffd900a8;
+  color: #444;
 }
 
 .product-card img {
@@ -131,7 +135,7 @@ header p {
 
 .product-info {
   padding: 15px;
-  color: #F2E8A2;
+
 }
 
 .product-info h3 {
