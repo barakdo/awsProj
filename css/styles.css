@@ -258,9 +258,10 @@ header p {
 
 footer {
   text-align: center;
-  padding: 20px;
+  padding: 30px;
   background-color: rgba(0, 0, 0, 0.5);
   color: #F2E8A2;
+  gap: 10px;
 }
 
 #loader {
@@ -294,4 +295,402 @@ footer {
   100% {
     transform: rotate(360deg);
   }
+}
+
+a {
+  cursor: pointer;
+  margin: 5px;
+}
+
+#stopMusic {
+  margin-right: 50px;
+
+  background-color: #111;
+  color: #f5c518;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #f5c518;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 0 10px rgba(245, 197, 24, 0.5);
+}
+
+#stopMusic:hover {
+  background-color: #333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(245, 197, 24, 0.7);
+}
+
+#stopMusic:active {
+  background-color: #444;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.8s ease-in-out;
+  border-radius: 40px;
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Close modal with fade-out after delay */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Modal Content */
+.modal-content {
+  background: linear-gradient(135deg, #0d0c0c, #1f1d1d);
+  padding: 60px 80px;
+  border-radius: 40px;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.8);
+  border: 5px solid #f5c518;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a delay to the fade-out effect */
+.modal.fade-out {
+  animation: fadeOut 0.5s ease-in-out 1 forwards; /* Fade out over 0.5 seconds */
+  animation-delay: 2s; /* Delay before starting the fade-out */
+}
+
+/* Close Button */
+.close {
+  color: #f5c518;
+  font-size: 40px;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+}
+
+.close:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+
+/* Custom Scrollbar */
+#orders-container::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+#orders-container::-webkit-scrollbar-thumb {
+  background-color: #d4a019; /* Luxury orange color */
+  border-radius: 10px;
+ 
+}
+
+#orders-container::-webkit-scrollbar-track {
+  background-color: #f4f4f4; /* Light background for the track */
+  border-radius: 10px;
+}
+
+
+
+
+#orders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 100%;
+  background: linear-gradient(to bottom, #1e1e1e, #292929); /* Rich dark gradient background */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow for luxurious feel */
+  border: 2px solid #b89018; /* Gold border for an expensive touch */
+}
+
+.order-card {
+  background: linear-gradient(to right, #2c2c2c, #1f1f1f); /* Subtle gradient for a modern dark tone */
+  border: 1px solid #4d4d4d; /* Sleek gray border */
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Elevated shadow */
+  margin-bottom: 25px;
+  width: 85%;
+  max-width: 900px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  color: #fff; /* White text for dark background */
+}
+
+.order-card:hover {
+  transform: scale(1.03); /* Subtle upscale on hover */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+  border: 2px solid #b89018; /* Highlight gold border on hover */
+}
+
+.order-header {
+  font-size: 26px;
+  font-weight: bold;
+  color: #f7c44c; /* Luxurious gold text */
+  margin-bottom: 15px;
+  letter-spacing: 1.2px;
+  font-family: 'Playfair Display', serif;
+}
+
+.order-details {
+  font-size: 16px;
+  color: #d9d9d9; /* Soft white-gray for elegance */
+  margin-bottom: 25px;
+  font-family: 'Lora', serif;
+}
+
+.items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid layout */
+  gap: 25px;
+  justify-content: center;
+}
+
+.item-card {
+  background: linear-gradient(to bottom, #1e1e1e, #292929); /* Dark premium gradient */
+  border: 2px solid #b89018; /* Gold border */
+  border-radius: 20px; /* Smooth, elegant rounded edges */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3); /* Luxurious shadow */
+  overflow: hidden;
+  text-align: center;
+  padding: 30px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  max-width: 320px;
+  margin: auto;
+  position: relative; /* For positioning overlays */
+}
+
+.item-card:hover {
+  transform: translateY(-12px); /* Lift effect on hover */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+  border-color: #f7c44c; /* Highlighted gold border */
+}
+
+.item-card img {
+  width: 100%;
+  height: 260px; /* Uniform image size */
+  object-fit: cover;
+  border-radius: 15px; /* Softly rounded edges for images */
+  margin-bottom: 20px;
+  border: 3px solid #f7c44c; /* Luxurious gold frame */
+}
+
+.item-card h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff; /* Bright white for contrast */
+  margin: 15px 0 10px;
+  letter-spacing: 1.5px;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase; /* Adds a premium feel */
+}
+
+.item-card p {
+  font-size: 15px;
+  color: #d9d9d9; /* Subtle gray-white for text */
+  margin: 10px 0;
+  line-height: 1.6;
+  font-family: 'Lora', serif;
+}
+
+.item-card .price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #f7c44c; /* Luxurious gold */
+  margin-top: 15px;
+  letter-spacing: 1.8px;
+  font-family: 'Lora', serif;
+}
+
+.item-card .quantity,
+.item-card .total-price {
+  font-size: 16px;
+  color: #d9d9d9; /* Elegant gray-white */
+  margin-top: 8px;
+  font-family: 'Lora', serif;
+}
+
+.item-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.6));
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.item-card:hover::before {
+  opacity: 1; /* Glowing overlay on hover */
+}
+
+/* Scrollbar styling for a luxurious look */
+#orders-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+#orders-container::-webkit-scrollbar-track {
+  background: #1e1e1e; /* Dark track */
+  border-radius: 10px;
+}
+
+#orders-container::-webkit-scrollbar-thumb {
+  background: #b89018; /* Rich gold scrollbar thumb */
+  border-radius: 10px;
+}
+
+#orders-container::-webkit-scrollbar-thumb:hover {
+  background: #f7c44c; /* Brighter gold on hover */
+}
+
+
+
+
+
+#orders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto; /* Adds a scrollbar if needed */
+  width: 100%;
+  background-color: #f8f8f8; /* Light background for elegance */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Luxurious shadow */
+}
+
+/* Style for individual order cards */
+.order-card-modal {
+  background: linear-gradient(to bottom, #ffffff, #fafafa); /* Subtle gradient for luxury */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Refined shadow */
+  margin: 15px 0;
+  width: 90%; /* Responsive width */
+  max-width: 900px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Order header styling */
+.order-header-modal {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Order details styling */
+.order-details-modal {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Container for items inside an order */
+.items-container-modal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Add spacing between items */
+  justify-content: space-between;
+}
+
+/* Individual item cards */
+.item-card-modal {
+  background: #ffffff;
+  border: none; /* No border for images */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Elegant shadow */
+  padding: 15px;
+  text-align: center;
+  width: calc(33.333% - 20px); /* Responsive grid (3 items per row) */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item-card-modal img {
+  width: 100%; /* Responsive image width */
+  height: 180px; /* Uniform image height */
+  object-fit: cover; /* Prevent image distortion */
+  border-radius: 10px; /* Smooth edges for images */
+  margin-bottom: 10px;
+}
+
+.item-card-modal h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.item-card-modal p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.item-card-modal .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #d4a019; /* Luxury gold color for pricing */
+}
+
+/* Remove hover effect on item cards */
+.item-card-modal:hover {
+  transform: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Keep shadow consistent */
 }

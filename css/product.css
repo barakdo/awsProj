@@ -7,14 +7,16 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #1a1a1a; /* Rich dark background for luxury feel */
+  background-color: #1a1a1a;
+  /* Rich dark background for luxury feel */
   color: white;
   overflow-x: hidden;
 }
 
 /* Header styling */
 header {
-  background: linear-gradient(135deg, #8a795d, #4b4230); /* Rich metallic tones */
+  background: linear-gradient(135deg, #8a795d, #4b4230);
+  /* Rich metallic tones */
   text-align: center;
   padding: 20px 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -22,7 +24,8 @@ header {
 
 header h1 {
   font-size: 2.5rem;
-  color: #e2d1b3; /* Champagne gold color */
+  color: #e2d1b3;
+  /* Champagne gold color */
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
@@ -33,8 +36,10 @@ header h1:hover {
   letter-spacing: 4px;
 }
 
-header a {
+a {
   text-decoration: none;
+  margin: 20px;
+  cursor: pointer;
 }
 
 /* Product Section */
@@ -47,7 +52,8 @@ header a {
   align-items: center;
   background: #2c2c2c;
   border-radius: 20px;
-  border: 2px solid #8a795d; /* Subtle metallic border */
+  border: 2px solid #8a795d;
+  /* Subtle metallic border */
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7), 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
@@ -64,7 +70,8 @@ header a {
 /* Product Details */
 .product-details {
   flex: 1;
-  color: #e2d1b3; /* Champagne gold for text */
+  color: #e2d1b3;
+  /* Champagne gold for text */
 }
 
 .product-details h2 {
@@ -84,12 +91,13 @@ header a {
 .product-details .price {
   font-size: 2rem;
   font-weight: bold;
-  color: #d4af37; /* Gold color for the price */
+  color: #d4af37;
+  /* Gold color for the price */
   margin-bottom: 30px;
 }
 
 .product-details button {
-  padding: 15px 40px;
+
   font-size: 1.2rem;
   font-weight: 600;
   color: white;
@@ -108,7 +116,7 @@ header a {
 /* Footer styling */
 footer {
   text-align: center;
-  padding: 20px 10px;
+  padding: 30px 10px;
   margin-top: 50px;
   background: #111;
   color: #e2d1b3;
@@ -182,7 +190,94 @@ footer p {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: Arial, sans-serif;
+}
+
+.quantity-container button {
+  height: 40px;
+  width: 40px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* .quantity-container input {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+} */
+
+.quantity-container input {
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #444;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #fff8e1, #f7e2b6);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.quantity-container input:hover {
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(145deg, #fffbe6, #fbe3c1);
+}
+
+
+
+
+#quantityBuy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.buy-now-btn{
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#stopMusic {
+  margin-right: 50px;
+  background-color: #111;
+  color: #f5c518;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #f5c518;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 0 10px rgba(245, 197, 24, 0.5);
+}
+
+#stopMusic:hover {
+  background-color: #333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 0 15px rgba(245, 197, 24, 0.7);
+}
+
+#stopMusic:active {
+  background-color: #444;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }

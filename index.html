@@ -11,8 +11,16 @@
 </head>
 
 <body>
-
   <div id="loader"></div>
+
+  <div style="display: none;" id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Order List</h1>
+      <br></br>
+      <div id="orders-container"></div>
+    </div>
+  </div>
 
   <header>
     <h1>Luxury Jewelry Collection</h1>
@@ -25,7 +33,12 @@
       <h2>Discover Timeless Elegance</h2>
       <p>Explore our exquisite collection of luxury rings, designed to add a touch of class to every occasion. Each
         piece is crafted with precision and passion, making it a perfect gift for yourself or a loved one.</p>
-      <a href="#products" class="shop-now-btn">Shop Now</a>
+      <div id="btns">
+        <a href="#products" class="shop-now-btn">Shop Now</a>
+        <a id="loginBtn" href="https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login?client_id=7khoarepmud5tr0imq9khtsjtt&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https%3A%2F%2Fdiamondluxe.s3.us-east-1.amazonaws.com%2Fcallback.html"
+          class="shop-now-btn">Log In</a>
+        <a id="openModalButton" class="shop-now-btn">Show Orders</a>
+      </div>
     </div>
     <div id="ring"></div>
   </section>
@@ -42,8 +55,9 @@
   <script src="js/3d.js"></script>
   <script src="js/main.js"></script>
 
-    <footer>
-    <p>&copy; 2025 Luxury Jewelry Collection. All rights reserved.</p>
+  <footer>
+    <p></p><a id="stopMusic" class="shop-now-btn">Start Music</a>
+    &copy; 2025 Luxury Jewelry Collection. All rights reserved.</p>
   </footer>
 </body>
 
