@@ -6,7 +6,7 @@ const postOrder = async () => {
   };
   const thisProduct = product();
   const body = {
-    items : [
+    items: [
       {
         productId: thisProduct["productId"],
         quantity: document.getElementById('quantity').value
@@ -18,7 +18,7 @@ const postOrder = async () => {
     const response = await fetch(apiUrl, {
       method: "POST",
       headers: headers,
-      body : JSON.stringify(body)
+      body: JSON.stringify(body)
     });
 
     if (!response.ok) {
@@ -101,12 +101,22 @@ const printProduct = (product) => {
   str += '<input type="number" id="quantity" value="1" min="1">';
   str += '<button type="button" id="plus">+</button>';
   str += '</div>';
-  str += '<button onclick="postOrder()" class="buy-now-btn">Buy Now</button>';
+  str += '<button onclick="tryBuy()" class="buy-now-btn">Buy Now</button>';
   str += '</div>';
   str += '</div>';
 
   document.getElementById("product").innerHTML = str;
   colorHandle();
+}
+
+const tryBuy = () => {
+  if (sessionStorage.getItem("tokenId") != null) {
+    postOrder()
+  }
+  else{
+    alert("Please log in to purchase jewelry")
+  }
+
 }
 
 const colorHandle = () => {
