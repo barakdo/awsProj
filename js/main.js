@@ -1,3 +1,5 @@
+const HomePageUrl = "http://localhost:5500/index.html";
+
 const getOrders = async () => {
   const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
   const headers = {
@@ -40,7 +42,7 @@ const checkParameters = () => {
   const urlParams = new URLSearchParams(window.location.hash.substring(1));
   if (urlParams.size != 0) {
     sessionStorage.setItem("tokenId", urlParams.get("id_token"));
-    window.location.href = 'http://localhost:5500/index.html';
+    window.location.href = HomePageUrl;
   }
 }
 

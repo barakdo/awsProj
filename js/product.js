@@ -1,3 +1,5 @@
+const HomePageUrl = "http://localhost:5500/index.html";
+
 const postOrder = async () => {
   const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
   const headers = {
@@ -26,8 +28,8 @@ const postOrder = async () => {
     }
 
     const data = await response.json();
-    console.log("Success:", data);  // Log the response data
-    return data;  // Return the fetched data
+    alert("Purchase was successful!");  // Log the response data
+    window.location.href = HomePageUrl;
   } catch (error) {
     console.error("Error:", error);
     return null;  // Return null if an error occurs
