@@ -6,27 +6,32 @@ const postOrder = async () => {
   };
   const thisProduct = product();
   const body = {
-    productId: thisProduct["productId"],
-    quantity: document.getElementById('quantity').value
+    items : [
+      {
+        productId: thisProduct["productId"],
+        quantity: document.getElementById('quantity').value
+      }
+    ]
   };
 
-  fetch(apiUrl, {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(body)
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Success:", data);
-    })
-    .catch(error => {
-      console.error("Error:", error);
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: headers,
+      body : JSON.stringify(body)
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Success:", data);  // Log the response data
+    return data;  // Return the fetched data
+  } catch (error) {
+    console.error("Error:", error);
+    return null;  // Return null if an error occurs
+  }
 }
 
 window.onload = () => {
@@ -96,7 +101,7 @@ const printProduct = (product) => {
   str += '<input type="number" id="quantity" value="1" min="1">';
   str += '<button type="button" id="plus">+</button>';
   str += '</div>';
-  str += '<button class="buy-now-btn">Buy Now</button>';
+  str += '<button onclick="postOrder()" class="buy-now-btn">Buy Now</button>';
   str += '</div>';
   str += '</div>';
 

@@ -4,24 +4,25 @@ const getOrders = async () => {
     "Content-Type": "application/json",
     "Authorization": sessionStorage.getItem("tokenId")
   };
-  fetch(apiUrl, {
-    method: "GET",
-    headers: headers,
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Success:", data);
-    })
-    .catch(error => {
-      console.error("Error:", error);
-    });
-}
 
+  try {
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Success:", data);  // Log the response data
+    return data;  // Return the fetched data
+  } catch (error) {
+    console.error("Error:", error);
+    return null;  // Return null if an error occurs
+  }
+}
 
 const getProducts = async () => {
   try {
@@ -35,9 +36,22 @@ const getProducts = async () => {
 }
 
 
+const checkParameters = () => {
+  const urlParams = new URLSearchParams(window.location.hash.substring(1));
+  if (urlParams.size != 0) {
+    sessionStorage.setItem("tokenId", urlParams.get("id_token"));
+    window.location.href = 'http://localhost:5500/index.html';
+  }
+}
+
+
 window.onload = async () => {
+  checkParameters();
   if (sessionStorage.getItem("tokenId") != null) {
     orderOperate();
+  }
+  else {
+    document.getElementById("openModalButton").style.display = "none";
   }
   loginOperate();
   modalOperate();
@@ -85,7 +99,6 @@ window.onload = async () => {
 };
 
 const printProducts = (products) => {
-  console.log(products);
   let str = "";
   for (const product of products) {
     str += '<div id=product' + product["productId"] + ' class="product-card">';
@@ -144,89 +157,34 @@ const modalOperate = () => {
 
 const loginOperate = () => {
   const loginBtn = document.getElementById("loginBtn");
-  if (!sessionStorage.getItem("tokenId") == null) {
+  if(sessionStorage.getItem("tokenId") != null){
     loginBtn.innerText = "Log out";
-    sessionStorage.clear();
-    location.reload();
   }
+  else{
+    loginBtn.innerText = "Log In";
+  }
+  loginBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    if(sessionStorage.getItem("tokenId") != null){     
+      sessionStorage.clear();
+      location.reload();
+    }
+    else{  
+      window.location.href = "https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login/continue?client_id=7khoarepmud5tr0imq9khtsjtt&redirect_uri=http%3A%2F%2Flocalhost%3A5500%2Findex.html&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+    }
+  })
 }
 
 
-// const ordersData = {
-//   "orders": [
-//     {
-//       "orderId": "50f0e9b4-4acc-42c1-8246-153fbabb0dde",
-//       "userEmail": "yan1v200005@gmail.com",
-//       "orderDate": "2025-01-15T20:38:21.564108",
-//       "totalPrice": 20000.0,
-//       "userId": "b49804a8-e0a1-705b-e793-7225a148bb0e",
-//       "items": [
-//         {
-//           "productId": "1",
-//           "imgUrl": "https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png",
-//           "productName": "Diamond Ring",
-//           "productPrice": 5000.0,
-//           "quantity": 4,
-//           "totalPrice": 20000.0
-//         }
-//       ]
-//     },
-//     {
-//       "orderId": "50f0e9b4-4acc-42c1-8246-153fbabb0dde",
-//       "userEmail": "yan1v200005@gmail.com",
-//       "orderDate": "2025-01-15T20:38:21.564108",
-//       "totalPrice": 20000.0,
-//       "userId": "b49804a8-e0a1-705b-e793-7225a148bb0e",
-//       "items": [
-//         {
-//           "productId": "1",
-//           "imgUrl": "https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png",
-//           "productName": "Diamond Ring",
-//           "productPrice": 5000.0,
-//           "quantity": 4,
-//           "totalPrice": 20000.0
-//         }
-//       ]
-//     },
-//     {
-//       "orderId": "72ff2c79-dffb-4bb2-b366-1343a92767f7",
-//       "userEmail": "yan1v200005@gmail.com",
-//       "orderDate": "2025-01-15T15:05:44.627445",
-//       "totalPrice": 40500.0,
-//       "userId": "b49804a8-e0a1-705b-e793-7225a148bb0e",
-//       "items": [
-//         {
-//           "productId": "9",
-//           "imgUrl": "https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/gold-bangle.png",
-//           "productName": "Gold Bangle",
-//           "productPrice": 2000.0,
-//           "quantity": 10,
-//           "totalPrice": 20000.0
-//         },
-//         {
-//           "productId": "2",
-//           "imgUrl": "https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/gold-necklace.png",
-//           "productName": "Gold Necklace",
-//           "productPrice": 3500.0,
-//           "quantity": 5,
-//           "totalPrice": 17500.0
-//         },
-//         {
-//           "productId": "3",
-//           "imgUrl": "https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/silver-bracelet.png",
-//           "productName": "Silver Bracelet",
-//           "productPrice": 1500.0,
-//           "quantity": 2,
-//           "totalPrice": 3000.0
-//         }
-//       ]
-//     }
-//   ]
-// };
-
 const orderOperate = async () => {
   ordersData = await getOrders();
+  
   const ordersContainer = document.getElementById('orders-container');
+
+  if (!ordersData) {
+    console.error('No orders available or invalid data:', ordersData);
+    return; // Exit early if the data is invalid
+  }
 
   ordersData.orders.forEach(order => {
     const orderCard = document.createElement('div');

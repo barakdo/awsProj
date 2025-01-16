@@ -662,7 +662,7 @@ a {
 }
 
 .item-card-modal img {
-  width: 100%; /* Responsive image width */
+  width: 80%; /* Responsive image width */
   height: 180px; /* Uniform image height */
   object-fit: cover; /* Prevent image distortion */
   border-radius: 10px; /* Smooth edges for images */
