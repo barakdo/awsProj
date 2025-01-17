@@ -28,8 +28,7 @@ const postOrder = async () => {
     }
 
     const data = await response.json();
-    alert("Purchase was successful!");  // Log the response data
-    window.location.href = HomePageUrl;
+    return true;
   } catch (error) {
     console.error("Error:", error);
     return null;  // Return null if an error occurs
@@ -113,10 +112,12 @@ const printProduct = (product) => {
 
 const tryBuy = () => {
   if (sessionStorage.getItem("tokenId") != null) {
-    postOrder()
+    if(postOrder()){
+      showSuccessPopup();
+    }
   }
   else{
-    alert("Please log in to purchase jewelry")
+    showErrorPopup();
   }
 
 }
@@ -156,4 +157,31 @@ const quantityOperate = () => {
   plusButton.addEventListener('click', () => {
     quantityInput.value = parseInt(quantityInput.value, 10) + 1;
   });
+}
+
+
+
+function showSuccessPopup() {
+  const popup = document.getElementById('popup-alert');
+  popup.classList.remove('hidden');
+}
+
+function closeSuccessPopup() {
+  const popup = document.getElementById('popup-alert');
+  popup.classList.add('hidden');
+  window.location.href = HomePageUrl;
+}
+
+function showErrorPopup() {
+  const popup = document.getElementById('error-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeErrorPopup() {
+  const popup = document.getElementById('error-popup');
+  popup.classList.add('hidden');
+}
+
+function redirectToLogin() {
+  window.location.href = "https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login/continue?client_id=7khoarepmud5tr0imq9khtsjtt&redirect_uri=http%3A%2F%2Flocalhost%3A5500%2Findex.html&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
 }
