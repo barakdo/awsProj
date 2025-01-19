@@ -48,6 +48,7 @@ const checkParameters = () => {
 
 
 window.onload = async () => {
+  document.getElementById('buy-btn').addEventListener('click', buyCart);
   checkParameters();
   if (sessionStorage.getItem("tokenId") != null) {
     orderOperate();
@@ -133,6 +134,7 @@ const finishFetching = () => {
 
 const modalOperate = () => {
   const modal = document.getElementById("myModal");
+  document.getElementById("modal-title").innerText = "Orders List";
   const openModalButton = document.getElementById("openModalButton");
   const closeModalButton = document.getElementsByClassName("close")[0];
   if (sessionStorage.getItem("tokenId") == null) {
@@ -159,19 +161,20 @@ const modalOperate = () => {
 
 const loginOperate = () => {
   const loginBtn = document.getElementById("loginBtn");
-  if(sessionStorage.getItem("tokenId") != null){
+  if (sessionStorage.getItem("tokenId") != null) {
     loginBtn.innerText = "Log out";
   }
-  else{
+  else {
     loginBtn.innerText = "Log In";
+    document.getElementById("shoppinCartBtn").style.display = "none";
   }
-  loginBtn.addEventListener('click', function(event) {
+  loginBtn.addEventListener('click', function (event) {
     event.preventDefault();
-    if(sessionStorage.getItem("tokenId") != null){     
+    if (sessionStorage.getItem("tokenId") != null) {
       sessionStorage.clear();
       location.reload();
     }
-    else{  
+    else {
       window.location.href = "https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login/continue?client_id=7khoarepmud5tr0imq9khtsjtt&redirect_uri=http%3A%2F%2Flocalhost%3A5500%2Findex.html&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
     }
   })
@@ -180,7 +183,7 @@ const loginOperate = () => {
 
 const orderOperate = async () => {
   ordersData = await getOrders();
-  
+
   const ordersContainer = document.getElementById('orders-container');
 
   if (!ordersData) {
@@ -237,4 +240,212 @@ const orderOperate = async () => {
 
 
 
+
+
+
+// const items = [
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 1',
+//     quantity: 2,
+//     totalPrice: 40.00,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   },
+//   {
+//     productName: 'Product 2',
+//     quantity: 1,
+//     totalPrice: 59.99,
+//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
+//   }
+// ];
+
+function displayCartItems() {
+  let items;
+  if (sessionStorage.getItem("cart") == null) {
+    items = [];
+
+    document.getElementById("cart-title").innerText = "Your shopping list is empty!";
+
+  }
+  else {
+    items = JSON.parse(sessionStorage.getItem("cart"));
+
+    const cartContainer = document.getElementById('cart-container');
+    cartContainer.innerHTML = ''; // Clear current cart content
+
+    let totalPrice = 0;
+
+    items.forEach((item) => {
+      const itemTotalPrice = item.totalPrice * item.quantity;
+
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('cart-item');
+      itemElement.innerHTML = `
+      <div class="cart-item-content">
+        <img src="${item.imgUrl}" alt="${item.productName}" class="cart-item-image">
+        <div class="cart-item-details">
+          <h3>${item.productName}</h3>
+          <p>Quantity: ${item.quantity}</p>
+          <p>Price: ${itemTotalPrice}$</p>
+        </div>
+        <button class="remove-btn" onclick="removeItem(${item.productId})">Remove</button>
+      </div>
+    `;
+      cartContainer.appendChild(itemElement);
+
+      totalPrice += itemTotalPrice; // Add item total to the grand total
+    });
+
+
+    // Display total price and the buy button
+    const totalElement = document.getElementById('total-price');
+    totalElement.innerHTML = `Total: ${totalPrice}$`;
+  }
+  if (JSON.parse(sessionStorage.getItem("cart")) == null) {
+    document.getElementById("buy-btn").style.display = "none";
+    document.getElementById("total-price").style.display = "none";
+  }
+}
+
+function removeItem(productId) {
+  let items = JSON.parse(sessionStorage.getItem("cart"));
+  let newList = [];
+  for (const item of items) {
+    if (item["productId"] != productId) {
+      newList.push(item);
+    }
+  }
+  sessionStorage.setItem("cart", JSON.stringify(newList));
+  displayCartItems(); // Re-render the cart with the updated items
+}
+
+// Open cart modal
+function openCartModal() {
+  document.getElementById('cart-modal').style.display = 'block';
+  displayCartItems();
+}
+
+// Close cart modal
+function closeCartModal() {
+  document.getElementById('cart-modal').style.display = 'none';
+}
+
+// Close modal when clicking on the close button
+document.getElementById('cart-close').addEventListener('click', closeCartModal);
+
+document.getElementById('order-close').addEventListener('click', closeOrderModal);
+
+function closeOrderModal() {
+  document.getElementById('myModal').style.display = 'none';
+}
+
+
+
+function showSuccessPopup() {
+  const popup = document.getElementById('popup-alert');
+  popup.classList.remove('hidden');
+}
+
+function closeSuccessPopup() {
+  const popup = document.getElementById('popup-alert');
+  popup.classList.add('hidden');
+  window.location.href = HomePageUrl;
+}
+
+function showErrorPopup() {
+  const popup = document.getElementById('error-popup');
+  popup.classList.remove('hidden');
+}
+
+function closeErrorPopup() {
+  const popup = document.getElementById('error-popup');
+  popup.classList.add('hidden');
+}
+
+function productsConvert(productsList) {
+  let arr = [];
+  for (const item of productsList) {
+    arr.push({
+      productId: item["productId"],
+      quantity: item["quantity"]
+    })
+  }
+  return arr;
+}
+
+
+const postOrder = async () => {
+  const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": sessionStorage.getItem("tokenId")
+  };
+  const conProducts = productsConvert(JSON.parse(sessionStorage.getItem("cart")));
+  const body = {
+    items: conProducts
+  };
+  console.log(body);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return true;
+  } catch (error) {
+    showErrorPopup();
+    return null;  // Return null if an error occurs
+  }
+}
+
+
+const buyCart = () => {
+  closeCartModal();
+  if (postOrder()) {
+    showSuccessPopup();
+    sessionStorage.removeItem('cart');
+  }
+}
 

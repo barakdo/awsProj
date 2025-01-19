@@ -7,20 +7,56 @@
   <link rel="icon" href="images/icon.png" type="image/png">
   <title>Luxury Jewelry Collection</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
   <div id="loader"></div>
 
+  <div id="popup-alert" class="popup hidden success">
+    <div class="popup-content">
+      <i class="popup-icon">&#10003;</i>
+      <h2 class="popup-title">Purchase Successful</h2>
+      <p class="popup-message">Your item has been successfully purchased. Thank you!</p>
+      <button class="popup-button" onclick="closeSuccessPopup()">Return to Homepage</button>
+    </div>
+  </div>
+
+  <div id="error-popup" class="popup hidden error">
+    <div class="popup-content">
+      <i class="popup-icon">&#9888;</i>
+      <h2 class="popup-title">Error occurred</h2>
+      <p class="popup-message">Cannot make a purchase due to an error</p>
+      <button class="popup-button" onclick="redirectToLogin()">Log In</button>
+      <button class="popup-button close" onclick="closeErrorPopup()">Cancel</button>
+    </div>
+  </div>
+
+
   <div style="display: none;" id="myModal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h1>Orders List</h1>
+      <span id="order-close" class="close">&times;</span>
+      <h1 id="modal-title">Orders List</h1>
       <br></br>
       <div id="orders-container"></div>
     </div>
   </div>
+
+  <div style="display: none;" id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cart-close">&times;</span>
+      <h1 id="cart-title">Shopping Cart</h1>
+      <br><br>
+      <div id="cart-container"></div>
+      <div id="total-price-container">
+        <span id="total-price">$99.99</span> <!-- Display the total price here -->
+        <button id="buy-btn">Buy Now</button>
+      </div>
+    </div>
+  </div>
+  
+  
 
   <header>
     <h1>Luxury Jewelry Collection</h1>
@@ -34,7 +70,7 @@
       <p>Explore our exquisite collection of luxury rings, designed to add a touch of class to every occasion. Each
         piece is crafted with precision and passion, making it a perfect gift for yourself or a loved one.</p>
       <div id="btns">
-        <a href="#products" class="shop-now-btn">Shop Now</a>
+        <a id="shoppinCartBtn" onclick="openCartModal()" class="shop-now-btn">Shopping cart <i style="font-size:24px" class="fa fa-shopping-cart"></i></a>
         <a id="loginBtn"
           class="shop-now-btn">Log In</a>
         <a id="openModalButton" class="shop-now-btn">Show Orders</a>

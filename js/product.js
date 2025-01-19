@@ -1,39 +1,6 @@
 const HomePageUrl = "http://localhost:5500/index.html";
 
-const postOrder = async () => {
-  const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
-  const headers = {
-    "Content-Type": "application/json",
-    "Authorization": sessionStorage.getItem("tokenId")
-  };
-  const thisProduct = product();
-  const body = {
-    items: [
-      {
-        productId: thisProduct["productId"],
-        quantity: document.getElementById('quantity').value
-      }
-    ]
-  };
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(body)
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return true;
-  } catch (error) {
-    console.error("Error:", error);
-    return null;  // Return null if an error occurs
-  }
-}
 
 window.onload = () => {
   printProduct(product());
@@ -102,7 +69,7 @@ const printProduct = (product) => {
   str += '<input type="number" id="quantity" value="1" min="1">';
   str += '<button type="button" id="plus">+</button>';
   str += '</div>';
-  str += '<button onclick="tryBuy()" class="buy-now-btn">Buy Now</button>';
+  str += '<button onclick="addToCart()" class="buy-now-btn">Add to cart</button>';
   str += '</div>';
   str += '</div>';
 
@@ -110,15 +77,45 @@ const printProduct = (product) => {
   colorHandle();
 }
 
-const tryBuy = () => {
+
+const addToCart = () => {
+
   if (sessionStorage.getItem("tokenId") != null) {
-    if(postOrder()){
+      const thisNewProduct = product();
+      const newProduct = {
+        productId: thisNewProduct["productId"],
+        productName: thisNewProduct["productName"],
+        quantity: document.getElementById('quantity').value,
+        totalPrice: thisNewProduct["productPrice"],
+        imgUrl: thisNewProduct["imgUrl"]
+      }
+
+      let cart;
+      if (sessionStorage.getItem("cart") == null) {
+        cart = [];
+        cart.push(newProduct);
+      }
+      else {
+        let exist = false;
+        cart = JSON.parse(sessionStorage.getItem("cart"));
+        for(const item of cart){
+          if(item["productId"] == newProduct["productId"]){
+            exist = true;
+            item["quantity"] = parseInt(item["quantity"]) + parseInt(newProduct["quantity"]);
+          }
+        }
+        if(!exist){
+          cart.push(newProduct);
+        }
+      }
+      sessionStorage.setItem("cart", JSON.stringify(cart));
       showSuccessPopup();
     }
-  }
-  else{
+  else {
     showErrorPopup();
   }
+
+
 
 }
 

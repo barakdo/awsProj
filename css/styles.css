@@ -694,3 +694,211 @@ a {
   transform: none;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Keep shadow consistent */
 }
+
+
+
+
+
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #f9f9f9; /* Lighter background color */
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.cart-item-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cart-item-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.cart-item-details h3, .cart-item-details p {
+  color: #333; /* Ensuring the text is dark enough to be legible */
+}
+
+.remove-btn {
+  background-color: #f44336; /* Slightly lighter red */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+  transform: scale(1.1);
+}
+
+#total-price-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#total-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: white; /* White color for total price */
+  background-color: #333; /* Dark background for contrast */
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+#buy-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#buy-btn:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+/* Base Popup Styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popup-content {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  animation: popupFadeIn 0.5s ease;
+}
+
+.popup-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.popup-message {
+  color:grey;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.popup-icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.popup-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease;
+  margin: 5px;
+}
+
+/* Success Popup Styles */
+.popup.success .popup-content {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+.popup.success .popup-icon {
+  color: #4caf50;
+}
+
+.popup.success .popup-title {
+  color: #444;
+}
+
+.popup.success .popup-button {
+  background: #4caf50;
+  color: #fff;
+}
+
+.popup.success .popup-button:hover {
+  background: #43a047;
+}
+
+/* Error Popup Styles */
+.popup.error .popup-content {
+  background: linear-gradient(135deg, #ffefef, #fff6f6);
+}
+
+.popup.error .popup-icon {
+  color: #e53935;
+}
+
+.popup.error .popup-title {
+  color: #c62828;
+}
+
+.popup.error .popup-button {
+  background: #e53935;
+  color: #fff;
+}
+
+.popup.error .popup-button:hover {
+  background: #d32f2f;
+}
+
+.popup.error .popup-button.close {
+  background: #757575;
+}
+
+.popup.error .popup-button.close:hover {
+  background: #616161;
+}
+
+/* Animation */
+@keyframes popupFadeIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
