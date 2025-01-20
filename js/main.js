@@ -50,12 +50,7 @@ const checkParameters = () => {
 window.onload = async () => {
   document.getElementById('buy-btn').addEventListener('click', buyCart);
   checkParameters();
-  if (sessionStorage.getItem("tokenId") != null) {
-    orderOperate();
-  }
-  else {
-    document.getElementById("openModalButton").style.display = "none";
-  }
+  checkAdmin();
   loginOperate();
   modalOperate();
   printProducts(await getProducts());
@@ -239,61 +234,6 @@ const orderOperate = async () => {
 }
 
 
-
-
-
-
-// const items = [
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 1',
-//     quantity: 2,
-//     totalPrice: 40.00,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   },
-//   {
-//     productName: 'Product 2',
-//     quantity: 1,
-//     totalPrice: 59.99,
-//     imgUrl: 'https://diamondluxe.s3.us-east-1.amazonaws.com/imgs/diamond-ring.png'
-//   }
-// ];
-
 function displayCartItems() {
   let items;
   if (sessionStorage.getItem("cart") == null) {
@@ -312,7 +252,6 @@ function displayCartItems() {
 
     items.forEach((item) => {
       const itemTotalPrice = item.totalPrice * item.quantity;
-
       const itemElement = document.createElement('div');
       itemElement.classList.add('cart-item');
       itemElement.innerHTML = `
@@ -449,3 +388,102 @@ const buyCart = () => {
   }
 }
 
+const checkAdmin = async () => {
+  const thisResponse = await GETAdmin();
+  if (thisResponse["isAdmin"]) {
+    document.getElementById("jewelBtn").style.display = "inline";
+    if (sessionStorage.getItem("tokenId") != null) {
+      orderOperate();
+    }
+    else {
+      document.getElementById("openModalButton").style.display = "none";
+    }
+  }
+  else{
+    document.getElementById("jewelBtn").style.display = "none";
+  }
+
+}
+
+const GETAdmin = async () => {
+  const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/isAdmin";
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": sessionStorage.getItem("tokenId")
+  };
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    //console.log("Success:", data);  // Log the response data
+    return data;  // Return the fetched data
+  } catch (error) {
+    console.error("Error:", error);
+    return false;
+  }
+}
+
+
+
+const POSTNewJewel = async () => {
+  const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/products";
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": sessionStorage.getItem("tokenId")
+  };
+  const body = {
+    "productName": "test-product",
+    "productDescription": "just a test, delete later",
+    "productPrice": 150,
+    "productImgUrl": "data:image"
+  };
+  console.log(body);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return true;
+  } catch (error) {
+    showErrorPopup();
+    return null;  // Return null if an error occurs
+  }
+}
+
+
+function imageToBase64(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject("No file provided");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      resolve(reader.result); // Base64 string
+    };
+
+    reader.onerror = () => {
+      reject("Error reading file");
+    };
+
+    reader.readAsDataURL(file); // Read the file as a Base64 URL
+  });
+}

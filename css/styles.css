@@ -304,7 +304,6 @@ a {
 
 #stopMusic {
   margin-right: 50px;
-
   background-color: #111;
   color: #f5c518;
   padding: 12px 24px;
@@ -327,6 +326,23 @@ a {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
+#jewelBtn{
+  background-color: #111;
+  color: #FFD700;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #FFD700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: none;
+
+}
+
+#jewelBtn:hover{
+  background-color: #333;
+}
 
 .modal {
   display: none;
