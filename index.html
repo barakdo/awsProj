@@ -55,8 +55,8 @@
       </div>
     </div>
   </div>
-  
-  
+
+
 
   <header>
     <h1>Luxury Jewelry Collection</h1>
@@ -70,9 +70,9 @@
       <p>Explore our exquisite collection of luxury rings, designed to add a touch of class to every occasion. Each
         piece is crafted with precision and passion, making it a perfect gift for yourself or a loved one.</p>
       <div id="btns">
-        <a id="shoppinCartBtn" onclick="openCartModal()" class="shop-now-btn">Shopping cart <i style="font-size:24px" class="fa fa-shopping-cart"></i></a>
-        <a id="loginBtn"
-          class="shop-now-btn">Log In</a>
+        <a id="shoppinCartBtn" onclick="openCartModal()" class="shop-now-btn">Shopping cart <i style="font-size:24px"
+            class="fa fa-shopping-cart"></i></a>
+        <a id="loginBtn" class="shop-now-btn">Log In</a>
         <a id="openModalButton" class="shop-now-btn">Show Orders</a>
       </div>
     </div>
@@ -82,7 +82,34 @@
   <!-- Product Display Section -->
   <section class="product-section">
     <h2>Featured Products</h2>
-    <button id="jewelBtn" class="shop-now-btn">Add a new Jewel</button>
+    <button id="jewelBtn" onclick="addJewelform()" class="shop-now-btn">Add a new Jewel</button>
+    <div id="newJewelDiv" class="form-container">
+      <h2>Jewel Information</h2>
+      <form>
+        <div class="form-group">
+          <label for="jewel-name">Jewel Name:</label>
+          <input type="text" id="jewel-name" name="jewel-name" placeholder="Enter jewel name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" placeholder="Enter a brief description"
+            required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price (USD):</label>
+          <input type="number" id="price" name="price" step="0.01" placeholder="Enter price" required>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Upload Image:</label>
+          <input id="chooseImg" type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <br>
+        <button id="submitBtn">Submit</button>
+      </form>
+    </div>
     <br><br>
     <div id="products" class="container">
     </div>

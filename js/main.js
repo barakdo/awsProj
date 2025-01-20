@@ -49,6 +49,7 @@ const checkParameters = () => {
 
 window.onload = async () => {
   document.getElementById('buy-btn').addEventListener('click', buyCart);
+  document.getElementById("submitBtn").addEventListener("click", addJewel);
   checkParameters();
   checkAdmin();
   loginOperate();
@@ -392,15 +393,16 @@ const checkAdmin = async () => {
   const thisResponse = await GETAdmin();
   if (thisResponse["isAdmin"]) {
     document.getElementById("jewelBtn").style.display = "inline";
-    if (sessionStorage.getItem("tokenId") != null) {
-      orderOperate();
-    }
-    else {
-      document.getElementById("openModalButton").style.display = "none";
-    }
   }
-  else{
+  else {
     document.getElementById("jewelBtn").style.display = "none";
+  }
+  if (sessionStorage.getItem("tokenId") != null) {
+    orderOperate();
+    document.getElementById("openModalButton").removeAttribute('style');
+  }
+  else {
+    document.getElementById("openModalButton").style.display = "none";
   }
 
 }
@@ -433,20 +435,18 @@ const GETAdmin = async () => {
 
 
 
-const POSTNewJewel = async () => {
+const POSTNewJewel = async (name, description, price, imageStr) => {
   const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/products";
   const headers = {
     "Content-Type": "application/json",
     "Authorization": sessionStorage.getItem("tokenId")
   };
   const body = {
-    "productName": "test-product",
-    "productDescription": "just a test, delete later",
-    "productPrice": 150,
-    "productImgUrl": "data:image"
+    "productName": name,
+    "productDescription": description,
+    "productPrice": price,
+    "productImgUrl": imageStr
   };
-  console.log(body);
-
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -459,10 +459,11 @@ const POSTNewJewel = async () => {
     }
 
     const data = await response.json();
+    alert("New Product added successfully to catalog!");
     return true;
   } catch (error) {
-    showErrorPopup();
-    return null;  // Return null if an error occurs
+    console.log(error);
+    return false;  // Return null if an error occurs
   }
 }
 
@@ -486,4 +487,52 @@ function imageToBase64(file) {
 
     reader.readAsDataURL(file); // Read the file as a Base64 URL
   });
+}
+
+
+
+const addJewelform = () => {
+  document.getElementById("newJewelDiv").style.display = "block";
+  document.getElementById("jewelBtn").style.display = "none";
+}
+
+const addJewel = async (event) => {
+  event.preventDefault();
+  const jewelName = document.getElementById("jewel-name").value;
+  const description = document.getElementById("description").value;
+  const price = document.getElementById("price").value;
+  const image = document.getElementById("chooseImg").files.length;
+  const imageFile = document.getElementById("chooseImg").files[0];
+
+  if (!jewelName) {
+    alert("Jewel Name cannot be empty!");
+    return;
+  }
+  if (!description) {
+    alert("Description cannot be empty!");
+    return;
+  }
+  if (!price) {
+    alert("Price cannot be empty!");
+    return;
+  }
+  if (Number(price) <= 0) {
+    alert("Price must be positive!");
+    return;
+  }
+
+  if (image === 0) {
+    alert("Please upload an image!");
+    return;
+  }
+  try {
+    const base64Image = await imageToBase64(imageFile);
+    if(await POSTNewJewel(jewelName, description, price, base64Image)){
+      location.reload();
+    }
+  } catch (error) {
+    console.error("Error converting image to Base64:", error);
+    alert("Failed to process the image. Please try again.");
+  }
+
 }
