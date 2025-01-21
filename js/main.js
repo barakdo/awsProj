@@ -1,4 +1,4 @@
-const HomePageUrl = "http://localhost:5500/index.html";
+const HomePageUrl = "https://diamondluxe.s3.amazonaws.com/index.html";
 
 const getOrders = async () => {
   const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
@@ -440,12 +440,16 @@ const POSTNewJewel = async (name, description, price, imageStr) => {
     "Content-Type": "application/json",
     "Authorization": sessionStorage.getItem("tokenId")
   };
+  console.log(imageStr);
+
+
   const body = {
-    "productName": name,
-    "productDescription": description,
-    "productPrice": price,
-    "productImgUrl": imageStr
+    productName: name,
+    productDescription: description,
+    productPrice: Number(price),
+    productImgUrl: imageStr
   };
+  console.log(body);
   try {
     const response = await fetch(apiUrl, {
       method: "POST",
@@ -467,27 +471,16 @@ const POSTNewJewel = async (name, description, price, imageStr) => {
 }
 
 
+
+
 function imageToBase64(file) {
   return new Promise((resolve, reject) => {
-    if (!file) {
-      reject("No file provided");
-      return;
-    }
-
     const reader = new FileReader();
-
-    reader.onload = () => {
-      resolve(reader.result); // Base64 string
-    };
-
-    reader.onerror = () => {
-      reject("Error reading file");
-    };
-
-    reader.readAsDataURL(file); // Read the file as a Base64 URL
+    reader.onload = () => resolve(reader.result); // Base64 string
+    reader.onerror = () => reject("Error reading file");
+    reader.readAsDataURL(file);
   });
 }
-
 
 
 const addJewelform = () => {
@@ -526,7 +519,7 @@ const addJewel = async (event) => {
   }
   try {
     const base64Image = await imageToBase64(imageFile);
-    if(await POSTNewJewel(jewelName, description, price, base64Image)){
+    if (await POSTNewJewel(jewelName, description, price, base64Image)) {
       location.reload();
     }
   } catch (error) {

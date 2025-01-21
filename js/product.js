@@ -1,4 +1,4 @@
-const HomePageUrl = "http://localhost:5500/index.html";
+const HomePageUrl = "https://diamondluxe.s3.amazonaws.com/index.html";
 
 
 
