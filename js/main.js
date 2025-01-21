@@ -274,7 +274,7 @@ function displayCartItems() {
     const totalElement = document.getElementById('total-price');
     totalElement.innerHTML = `Total: ${totalPrice}$`;
   }
-  if (JSON.parse(sessionStorage.getItem("cart")) == null) {
+  if (JSON.parse(sessionStorage.getItem("cart")) == null || sessionStorage.getItem("cart")== "[]") {
     document.getElementById("buy-btn").style.display = "none";
     document.getElementById("total-price").style.display = "none";
   }
