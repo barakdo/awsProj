@@ -180,5 +180,5 @@ function closeErrorPopup() {
 }
 
 function redirectToLogin() {
-  window.location.href = "https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login/continue?client_id=7khoarepmud5tr0imq9khtsjtt&redirect_uri=http%3A%2F%2Flocalhost%3A5500%2Findex.html&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
+  window.location.href = "https://us-east-1yrns7hepw.auth.us-east-1.amazoncognito.com/login?client_id=7khoarepmud5tr0imq9khtsjtt&redirect_uri=https://diamondluxe.s3.us-east-1.amazonaws.com/index.html&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile";
 }
