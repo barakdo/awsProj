@@ -315,7 +315,6 @@ function closeOrderModal() {
 }
 
 
-
 function showSuccessPopup() {
   const popup = document.getElementById('popup-alert');
   popup.classList.remove('hidden');
