@@ -389,21 +389,20 @@ const buyCart = () => {
 }
 
 const checkAdmin = async () => {
-  const thisResponse = await GETAdmin();
-  if (thisResponse["isAdmin"]) {
-    document.getElementById("jewelBtn").style.display = "inline";
-  }
-  else {
-    document.getElementById("jewelBtn").style.display = "none";
-  }
   if (sessionStorage.getItem("tokenId") != null) {
+    const thisResponse = await GETAdmin();
+    if (thisResponse["isAdmin"]) {
+      document.getElementById("jewelBtn").style.display = "inline";
+    }
+    else {
+      document.getElementById("jewelBtn").style.display = "none";
+    }
     orderOperate();
     document.getElementById("openModalButton").removeAttribute('style');
   }
   else {
     document.getElementById("openModalButton").style.display = "none";
   }
-
 }
 
 const GETAdmin = async () => {
