@@ -1,4 +1,4 @@
-const HomePageUrl = "https://diamondluxe.s3.amazonaws.com/index.html";
+const HomePageUrl = "https://diamondluxe.s3.us-east-1.amazonaws.com/index.html";
 
 const getOrders = async () => {
   const apiUrl = "https://6wdws3ku5i.execute-api.us-east-1.amazonaws.com/dev/orders";
