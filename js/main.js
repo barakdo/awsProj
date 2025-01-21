@@ -237,11 +237,9 @@ const orderOperate = async () => {
 
 function displayCartItems() {
   let items;
-  if (sessionStorage.getItem("cart") == null) {
+  if (sessionStorage.getItem("cart") == null|| sessionStorage.getItem("cart")== "[]") {
     items = [];
-
     document.getElementById("cart-title").innerText = "Your shopping list is empty!";
-
   }
   else {
     items = JSON.parse(sessionStorage.getItem("cart"));
