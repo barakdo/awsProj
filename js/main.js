@@ -240,6 +240,8 @@ function displayCartItems() {
   if (sessionStorage.getItem("cart") == null|| sessionStorage.getItem("cart")== "[]") {
     items = [];
     document.getElementById("cart-title").innerText = "Your shopping list is empty!";
+    document.getElementById("buy-btn").style.display = "none";
+    document.getElementById("total-price").style.display = "none";
   }
   
     items = JSON.parse(sessionStorage.getItem("cart"));
