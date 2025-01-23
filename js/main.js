@@ -237,18 +237,15 @@ const orderOperate = async () => {
 
 function displayCartItems() {
   let items;
+  const cartContainer = document.getElementById('cart-container');
+  cartContainer.innerHTML = ''; // Clear current cart content
   if (sessionStorage.getItem("cart") == null|| sessionStorage.getItem("cart")== "[]") {
     items = [];
     document.getElementById("cart-title").innerText = "Your shopping list is empty!";
     document.getElementById("buy-btn").style.display = "none";
     document.getElementById("total-price").style.display = "none";
-    cartContainer.innerHTML = '';
   }
     items = JSON.parse(sessionStorage.getItem("cart"));
-
-    const cartContainer = document.getElementById('cart-container');
-    cartContainer.innerHTML = ''; // Clear current cart content
-
     let totalPrice = 0;
 
     items.forEach((item) => {
